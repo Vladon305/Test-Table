@@ -1,4 +1,5 @@
 import { DataType } from "../data"
+import { Dispatch, SetStateAction } from "react"
 
 type sortConfigType = {
   sortBox: string,
@@ -8,19 +9,22 @@ type sortConfigType = {
 }
 
 export const checkingSortFields = (sortConfig: sortConfigType, sortData: DataType[],
-  setSortData: React.Dispatch<React.SetStateAction<DataType[]>>) => {
+  setSortData: Dispatch<SetStateAction<DataType[]>>) => {
 
   switch (sortConfig.sortBox) {                                       //занесение данных в массив сортировки
     case 'name':
-      setSortData([...sortData.sort((a, b) => (a.name > b.name ? 1 : -1))])
+      const nameData = [...sortData].sort((a, b) => (a.name > b.name ? 1 : -1))
+      setSortData(nameData)
       break
 
     case 'points':
-      setSortData([...sortData.sort((a, b) => a.points - b.points)])
+      const pointsData = [...sortData].sort((a, b) => a.points - b.points)
+      setSortData(pointsData)
       break
 
     case 'distance':
-      setSortData([...sortData.sort((a, b) => a.distance - b.distance)])
+      const distanceData = [...sortData].sort((a, b) => a.distance - b.distance)
+      setSortData(distanceData)
       break
 
     default:
@@ -32,29 +36,25 @@ export const checkingSortFields = (sortConfig: sortConfigType, sortData: DataTyp
       case 'name':
         switch (sortConfig.filterLaw) {                               //сортировка по условию
           case 'equal':
-            setSortData([
-              ...sortData.filter((e) => e.name === sortConfig.filterArgument)
-            ])
+            const equalData = [...sortData].filter((e) => e.name === sortConfig.filterArgument)
+            setSortData(equalData)
             break
 
           case 'contain':
-            setSortData([
-              ...sortData.filter((e) => e.name.includes(sortConfig.filterArgument))
-            ])
+            const containData = [...sortData].filter((e) => e.name.includes(sortConfig.filterArgument))
+            setSortData(containData)
             break
 
           case 'greater':
-            setSortData([
-              // @ts-ignore
-              ...sortData.filter((e) => e.name.length > sortConfig.filterArgument)
-            ])
+            // @ts-ignore
+            const greaterData = [...sortData].filter((e) => e.name.length > sortConfig.filterArgument)
+            setSortData(greaterData)
             break
 
           case 'less':
-            setSortData([
-              // @ts-ignore
-              ...sortData.filter((e) => e.name.length < sortConfig.filterArgument)
-            ])
+            // @ts-ignore
+            const lessData = [...sortData].filter((e) => e.name.length < sortConfig.filterArgument)
+            setSortData(lessData)
             break
 
           default:
@@ -65,31 +65,23 @@ export const checkingSortFields = (sortConfig: sortConfigType, sortData: DataTyp
       case 'points':
         switch (sortConfig.filterLaw) {
           case 'equal':
-            setSortData([
-              ...sortData.filter(
-                (e) => e.points === Number(sortConfig.filterArgument)
-              )
-            ])
+            const equalData = [...sortData].filter((e) => e.points === Number(sortConfig.filterArgument))
+            setSortData(equalData)
             break
 
           case 'contain':
-            setSortData([
-              ...sortData.filter((e) =>
-                e.points.toString().includes(sortConfig.filterArgument)
-              )
-            ])
+            const containData = [...sortData].filter((e) => e.points.toString().includes(sortConfig.filterArgument))
+            setSortData(containData)
             break
 
           case 'greater':
-            setSortData([
-              ...sortData.filter((e) => e.points > Number(sortConfig.filterArgument))
-            ])
+            const greaterData = [...sortData].filter((e) => e.points > Number(sortConfig.filterArgument))
+            setSortData(greaterData)
             break
 
           case 'less':
-            setSortData([
-              ...sortData.filter((e) => e.points < Number(sortConfig.filterArgument))
-            ])
+            const lessData = [...sortData].filter((e) => e.points < Number(sortConfig.filterArgument))
+            setSortData(lessData)
             break
 
           default:
@@ -100,35 +92,23 @@ export const checkingSortFields = (sortConfig: sortConfigType, sortData: DataTyp
       case 'distance':
         switch (sortConfig.filterLaw) {
           case 'equal':
-            setSortData([
-              ...sortData.filter(
-                (e) => e.distance === Number(sortConfig.filterArgument)
-              )
-            ])
+            const equalData = [...sortData].filter((e) => e.distance === Number(sortConfig.filterArgument))
+            setSortData(equalData)
             break
 
           case 'contain':
-            setSortData([
-              ...sortData.filter((e) =>
-                e.distance.toString().includes(sortConfig.filterArgument)
-              )
-            ])
+            const containData = [...sortData].filter((e) => e.distance.toString().includes(sortConfig.filterArgument))
+            setSortData(containData)
             break
 
           case 'greater':
-            setSortData([
-              ...sortData.filter(
-                (e) => e.distance > Number(sortConfig.filterArgument)
-              )
-            ])
+            const greaterData = [...sortData].filter((e) => e.distance > Number(sortConfig.filterArgument))
+            setSortData(greaterData)
             break
 
           case 'less':
-            setSortData([
-              ...sortData.filter(
-                (e) => e.distance < Number(sortConfig.filterArgument)
-              )
-            ])
+            const lessData = [...sortData].filter((e) => e.distance < Number(sortConfig.filterArgument))
+            setSortData(lessData)
             break
 
           default:

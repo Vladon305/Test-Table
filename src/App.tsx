@@ -3,27 +3,30 @@ import Table from './components/Table'
 import TableForm from './components/TableForm'
 import Paginator from './components/Paginator'
 import { data, DataType } from './data'
-import { checkingSortFields } from './utils/CheckingSortFields'
+import { checkingSortFields } from './utils/checkingSortFields'
 
 const App = () => {
 
   const [sortData, setSortData] = useState(data as unknown as DataType[])
   const [sortConfig, setSortConfig] = useState({
-    sortDirection: 'ASC',
     sortBox: 'name',
-    filterBox: undefined,
-    filterLaw: undefined,
-    filterArgument: undefined as unknown as string
+    filterBox: undefined as unknown as string,                                   //поле сортировки
+    filterLaw: undefined as unknown as string,                                   //условие сортировки
+    filterArgument: undefined as unknown as string                               //аргумент сортировки
   })
 
-  const [renderData, setRenderData] = useState(sortData)
+  const [renderedData, setRenderedData] = useState(sortData)
 
   const [pagesConfig, setPagesConfig] = useState({             //установка данных для пагинации
     currentPage: 1,
     pageCount: Math.ceil(sortData.length / 5)
   })
 
-  const onFilterSubmit = (config: any) => {                  //установка конфигурации при нажатии "сортировка"
+  const onFilterSubmit = (config: {          //установка конфигурации при нажатии "сортировка"
+    name: string,
+    law: string,
+    argument: string
+  }) => {
     setSortConfig({
       ...sortConfig,
       filterBox: config.name,
@@ -46,13 +49,13 @@ const App = () => {
     // eslint-disable-next-line
   }, [sortConfig])
 
-  useEffect(() => {                                              //установка количества страниц
+  useEffect(() => {                                              //установка количества страниц после сортировки
     setPagesConfig({ ...pagesConfig, pageCount: Math.ceil(sortData.length / 5) })
     // eslint-disable-next-line
   }, [sortData])
 
   useEffect(() => {
-    setRenderData(
+    setRenderedData(
       sortData.slice(
         pagesConfig.currentPage === 1
           ? pagesConfig.currentPage - 1
@@ -68,7 +71,7 @@ const App = () => {
         <h1 className="text-4xl text-black m-0">Таблица</h1>
 
         <TableForm filterSubmit={onFilterSubmit} onReset={onResetHandle} />
-        <Table data={renderData} />
+        <Table data={renderedData} />
         <Paginator
           currentPage={pagesConfig.currentPage}
           pageCount={pagesConfig.pageCount}

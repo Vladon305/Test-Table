@@ -11,26 +11,6 @@ type sortConfigType = {
 export const checkingSortFields = (sortConfig: sortConfigType, sortData: DataType[],
   setSortData: Dispatch<SetStateAction<DataType[]>>) => {
 
-  switch (sortConfig.sortBox) {                                       //занесение данных в массив сортировки
-    case 'name':
-      const nameData = [...sortData].sort((a, b) => (a.name > b.name ? 1 : -1))
-      setSortData(nameData)
-      break
-
-    case 'points':
-      const pointsData = [...sortData].sort((a, b) => a.points - b.points)
-      setSortData(pointsData)
-      break
-
-    case 'distance':
-      const distanceData = [...sortData].sort((a, b) => a.distance - b.distance)
-      setSortData(distanceData)
-      break
-
-    default:
-      break
-  }
-
   if (sortConfig.filterBox && sortConfig.filterLaw && sortConfig.filterArgument) { //если все поля указаны
     switch (sortConfig.filterBox) {                                   //сортировка по полю
       case 'name':
